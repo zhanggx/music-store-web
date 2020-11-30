@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.musicstore.model.dao.MusicMapper">
+    <sql id="sqlDetail">
+        SELECT A.*,B.name as album_name,B.picture_path as album_picture_path,S.name as singer_name FROM music A
+        LEFT JOIN album B ON A.album_id = B.id
+        LEFT JOIN singer S ON A.singer_id = S.id
+    </sql>
+    <select id="getList" resultType="com.example.musicstore.model.bean.Music">
+        <include refid="sqlDetail"/>
+        ORDER BY A.id DESC
+    </select>
+    <select id="getRecommendList" resultType="com.example.musicstore.model.bean.Music">
+        <include refid="sqlDetail"/>
+        WHERE A.recommend_index>0
+        ORDER BY A.recommend_index,A.id
+    </select>
+    <select id="search" resultType="com.example.musicstore.model.bean.Music" parameterType="com.example.musicstore.model.bean.dto.MusicDto">
+        <include refid="sqlDetail"/>
+        <where>
+            <if test="name != null and name !=''">
+                AND (A.name LIKE CONCAT('%', #{name}, '%') OR B.name LIKE CONCAT('%', #{name}, '%') OR S.name LIKE CONCAT('%', #{name}, '%'))
+            </if>
+        </where>
+        ORDER BY A.id DESC
+    </select>
+    <select id="getMusic" resultType="com.example.musicstore.model.bean.Music">
+        <include refid="sqlDetail"/>
+        where A.id=#{id}
+    </select>
+    <select id="getAlbumMusicList" resultType="com.example.musicstore.model.bean.Music">
+        <include refid="sqlDetail"/>
+        where A.album_id=#{albumId}
+    </select>
+    <select id="getSingerMusicList" resultType="com.example.musicstore.model.bean.Music">
+        <include refid="sqlDetail"/>
+        where A.singer_id=#{albumId}
+    </select>
+    <select id="getMusicCountByAlbumId" resultType="java.lang.Integer">
+        SELECT  COUNT(1) as music_count FROM music WHERE album_id=#{id}
+    </select>
+    <select id="getMusicCountBySingerId" resultType="java.lang.Integer">
+        SELECT  COUNT(1) as music_count FROM music WHERE singer_id=#{id}
+    </select>
+    <select id="getMaxRecommendIndex" resultType="java.lang.Integer">
+        SELECT  MAX(recommend_index) as max_recommend_index FROM music
+    </select>
+
+    <insert id="insertMusic" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.musicstore.model.bean.Music">
+        INSERT INTO music (name,album_id,singer_id,time_length,file_path,file_size,description)
+        VALUES(#{name},#{albumId},#{singerId},#{timeLength},#{filePath},#{fileSize},#{description})
+    </insert>
+    <update id="updateMusic" parameterType="com.example.musicstore.model.bean.Music">
+        UPDATE music SET
+        name=#{name},album_id=#{albumId},singer_id=#{singerId},time_length=#{timeLength},file_path=#{filePath},file_size=#{fileSize},description=#{description}
+        WHERE id=#{id}
+    </update>
+    <update id="updateRecommendIndex">
+        UPDATE music SET recommend_index=#{recommendIndex}
+        WHERE id=#{id}
+    </update>
+</mapper>

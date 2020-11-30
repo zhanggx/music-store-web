@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.musicstore.model.dao.AlbumMapper">
+    <sql id="sqlDetail">
+        SELECT A.*,B.name as theme_name,S.name as singer_name FROM album A
+        LEFT JOIN theme B ON A.theme_id = B.id
+        LEFT JOIN singer S ON A.singer_id = S.id
+    </sql>
+    <select id="getList" resultType="com.example.musicstore.model.bean.Album">
+        <include refid="sqlDetail"/>
+        ORDER BY A.id DESC
+    </select>
+    <select id="search" resultType="com.example.musicstore.model.bean.Album" parameterType="com.example.musicstore.model.bean.dto.AlbumDto">
+        <include refid="sqlDetail"/>
+        <where>
+            <if test="name != null and name !=''">
+                AND (A.name LIKE CONCAT('%', #{name}, '%') OR B.name LIKE CONCAT('%', #{name}, '%') OR S.name LIKE CONCAT('%', #{name}, '%'))
+            </if>
+        </where>
+        ORDER BY A.id DESC
+    </select>
+    <select id="getAlbum" resultType="com.example.musicstore.model.bean.Album">
+        <include refid="sqlDetail"/>
+        where A.id=#{id}
+    </select>
+    <select id="getSingerAlbumList" resultType="com.example.musicstore.model.bean.Album">
+        <include refid="sqlDetail"/>
+        where A.singer_id=#{singerId}
+        ORDER BY A.id DESC
+    </select>
+
+    <select id="getAlbumCountByThemeId" resultType="java.lang.Integer">
+        SELECT  COUNT(*) FROM album WHERE theme_id=#{themeId}
+    </select>
+    <select id="getAlbumCountBySingerId" resultType="java.lang.Integer">
+        SELECT  COUNT(*) FROM album WHERE singer_id=#{singerId}
+    </select>
+    <insert id="insertAlbum" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.musicstore.model.bean.Album">
+        INSERT INTO album (name,picture_path,music_count,description,publish_time,singer_id,theme_id)
+        VALUES(#{name},#{picturePath},#{musicCount},#{description},#{publishTime},#{singerId},#{themeId})
+    </insert>
+    <update id="updateAlbum" parameterType="com.example.musicstore.model.bean.Album">
+        UPDATE album SET
+        name=#{name},picture_path=#{picturePath},music_count=#{musicCount},description=#{description},publish_time=#{publishTime},singer_id=#{singerId},theme_id=#{themeId}
+        WHERE id=#{id}
+    </update>
+</mapper>
