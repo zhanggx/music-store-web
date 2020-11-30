@@ -8,10 +8,6 @@ import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-/**
- *
- * Created by liccon on 2019/10/15.
- */
 @org.apache.ibatis.annotations.Mapper
 public interface MusicMapper extends Mapper<Music> {
     List<Music> search(MusicDto requestBean);

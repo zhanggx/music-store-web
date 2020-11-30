@@ -6,10 +6,6 @@ import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
-/**
- *
- * Created by liccon on 2019/07/16.
- */
 public interface SysUserService {
   /**
    * 搜索记录

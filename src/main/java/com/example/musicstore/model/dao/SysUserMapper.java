@@ -7,10 +7,6 @@ import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-/**
- *
- * Created by liccon on 2019/07/16.
- */
 @org.apache.ibatis.annotations.Mapper
 public interface SysUserMapper extends Mapper<SysUser> {
 

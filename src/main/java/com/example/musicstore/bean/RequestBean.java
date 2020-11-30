@@ -5,18 +5,6 @@ import java.lang.reflect.Field;
 import com.example.musicstore.util.DateTimeUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-/**
- * RequestBean.java
- * ==============================================
- * Copy right 2009-2018 by by http://www.cloudcall.com/
- *
- * ==============================================
- *
- * @author : liccon
- * @version : 1.0.0
- * @desc : 通用http接口请求参数对象
- * @since : 2018/9/19
- */
 public class RequestBean {
 
     private Integer id;

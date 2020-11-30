@@ -2,18 +2,6 @@ package com.example.musicstore.bean;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-/**
- * ResultBean.java
- * ==============================================
- * Copy right 2009-2018 by by http://www.cloudcall.com/
- *
- * ==============================================
- *
- * @author : liccon
- * @version : 1.0.0
- * @desc : 通用http接口返回参数对象
- * @since : 2018/9/19
- */
 public class ResultBean {
 
     private boolean success;

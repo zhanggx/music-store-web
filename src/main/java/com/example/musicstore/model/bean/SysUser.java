@@ -9,10 +9,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.sql.Timestamp;
 
-/**
- *
- * Created by liccon on 2019/07/16.
- */
 @Table(name = "sys_user")
 public class SysUser {
 

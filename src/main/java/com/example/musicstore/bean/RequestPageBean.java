@@ -1,9 +1,5 @@
 package com.example.musicstore.bean;
 
-/**
- * Created by Liccon on 2/9/18.
- * desc:分页参数 bean
- */
 public class RequestPageBean extends RequestBean {
     private Integer page;//查询的页数,第1页为初始值
     private int pageSize;

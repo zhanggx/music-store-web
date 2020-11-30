@@ -11,10 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- *
- * Created by liccon on 2019/07/16.
- */
 @Service
 public class SysUserServiceImpl implements SysUserService {
 

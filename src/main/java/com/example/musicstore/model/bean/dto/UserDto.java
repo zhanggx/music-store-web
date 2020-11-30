@@ -3,12 +3,6 @@ package com.example.musicstore.model.bean.dto;
 
 import com.example.musicstore.bean.RequestPageBean;
 
-/**
- * @program: musicstore
- * @description: 用户查询类
- * @author: Mr.Wang
- * @create: 2019-07-19 10:51
- **/
 public class UserDto extends RequestPageBean {
     private String account;
     private String startTime;
