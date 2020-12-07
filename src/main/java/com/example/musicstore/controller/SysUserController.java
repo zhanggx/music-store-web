@@ -22,12 +22,12 @@ import java.util.UUID;
 @CrossOrigin
 @RequestMapping("/user")
 public class SysUserController{
-    private static final String PASSWORD_PREFIX="youkecloud";
+    private static final String PASSWORD_PREFIX="musicstore";
     private static final String PASSWORD_POSTFIX="JustDoIt";
     private static final long TOKEN_EXPIRE_TIMEOUT=48*60*60; //48小时过期
-    private static final String LOGIN_USER_CACHE_KEY="youkeyun_login_token_";
+    private static final String LOGIN_USER_CACHE_KEY="musicstore_login_token_";
     private static final String PHONE_REG = "^(1[3456789])\\d{9}$";
-    private static final String PASSWORD_REG ="^[a-zA-Z]\\w{5,17}$";
+    private static final String PASSWORD_REG ="^[a-zA-Z0-9]\\w{5,17}$";
     @Autowired
     SysUserService userService;
 
@@ -120,13 +120,14 @@ public class SysUserController{
                 return ResultBean.fail(ResultBean.ERROR_CODE_PARAMETERERROR,"手机号码格式不正确");
             }
         }
-        String pwd= getMd5Password(user.getPassword());
-        user.setPassword(pwd);
         //判断是否存在该用户
         SysUser userInfo =userService.getUserByAccount(user.getAccount());
         if (userInfo != null){
             return ResultBean.fail(ResultBean.ERROR_CODE_USEREXISTED,"该用户已存在，请设置新的账号");
         }
+        String pwd= getMd5Password(user.getPassword());
+        user.setPassword(pwd);
+        user.setStatus(true);
         int result = userService.insertUser(user);
         if (result>0){
             resultBean = ResultBean.success();

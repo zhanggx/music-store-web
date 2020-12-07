@@ -22,15 +22,15 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `album`;
 CREATE TABLE `album`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '专辑名称',
   `picture_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '专辑封面',
-  `music_count` int(0) NULL DEFAULT 0 COMMENT '音乐数',
+  `music_count` int NULL DEFAULT 0 COMMENT '音乐数',
   `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '说明',
   `publish_time` date NULL DEFAULT NULL COMMENT '发行时间',
-  `singer_id` int(0) NULL DEFAULT NULL COMMENT '歌手ID',
-  `theme_id` int(0) NULL DEFAULT NULL COMMENT '专辑类型id',
-  `time_stamp` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `singer_id` int NULL DEFAULT NULL COMMENT '歌手ID',
+  `theme_id` int NULL DEFAULT NULL COMMENT '专辑类型id',
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -44,16 +44,16 @@ INSERT INTO `album` VALUES (1, '一起走过的日子', '/images/yqzgdrz.jpg', 3
 -- ----------------------------
 DROP TABLE IF EXISTS `music`;
 CREATE TABLE `music`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `album_id` int(0) NOT NULL COMMENT '专辑id',
-  `singer_id` int(0) NULL DEFAULT NULL COMMENT '歌手Id',
-  `time_length` int(0) NULL DEFAULT 0 COMMENT '时长，单位秒',
+  `album_id` int NOT NULL COMMENT '专辑id',
+  `singer_id` int NULL DEFAULT NULL COMMENT '歌手Id',
+  `time_length` int NULL DEFAULT 0 COMMENT '时长，单位秒',
   `file_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件链接',
-  `file_size` int(0) NULL DEFAULT NULL COMMENT '文件长度',
+  `file_size` int NULL DEFAULT NULL COMMENT '文件长度',
   `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `recommend_index` int(0) NOT NULL DEFAULT 0 COMMENT '0为未推荐，大于0为推荐的排序，按小到大排序',
-  `time_stamp` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `recommend_index` int NOT NULL DEFAULT 0 COMMENT '0为未推荐，大于0为推荐的排序，按小到大排序',
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `ix_music_recommend`(`recommend_index`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
@@ -69,12 +69,12 @@ INSERT INTO `music` VALUES (1, '一起走过的日子', 1, 1, 233, '/music/ldh_y
 -- ----------------------------
 DROP TABLE IF EXISTS `singer`;
 CREATE TABLE `singer`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '歌手姓名',
   `picture_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '歌手照片',
   `birthday` date NULL DEFAULT NULL COMMENT '生日',
   `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `time_stamp` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -88,28 +88,28 @@ INSERT INTO `singer` VALUES (1, '刘德华', '/images/ldh.jpg', '1961-09-27', '�
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `account` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(38) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `mobile_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机号码',
   `status` bit(1) NOT NULL DEFAULT b'1' COMMENT '状态',
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像',
-  `time_stamp` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '74bd427e70bfda9b5d8c34ff2ae5e696', '系统管理员', NULL, b'1', NULL, '2019-07-16 17:35:14');
+INSERT INTO `sys_user` VALUES (1, 'admin', '7ac02d8b8a36dab83305a5533854d41c', '系统管理员', NULL, b'1', NULL, '2019-07-16 17:35:14');
 
 -- ----------------------------
 -- Table structure for theme
 -- ----------------------------
 DROP TABLE IF EXISTS `theme`;
 CREATE TABLE `theme`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE

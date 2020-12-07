@@ -102,13 +102,13 @@ public class MD5Util {
 			System.out.println("file name=" + file.getName() + " is not exists");
 		}
 	}*/
-private static final String PASSWORD_PREFIX="youkecloud";
+private static final String PASSWORD_PREFIX="musicstore";
 	private static final String PASSWORD_POSTFIX="JustDoIt";
 	private static String getMd5Password(String pwd){
 		return MD5Util.MD5Encode(PASSWORD_PREFIX + MD5Util.MD5Encode(PASSWORD_PREFIX + pwd + PASSWORD_POSTFIX) + PASSWORD_POSTFIX);
 	}
 	public static void main(String[] args) {
-		String pwd="Cloud2019@)!(";
+		String pwd="123456";
 		String text=getMd5Password(pwd);
 
 		System.out.println("text=" + text);
